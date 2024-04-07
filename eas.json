@@ -1,0 +1,29 @@
+{
+  "build": {
+    "development": {
+      "node": "20.12.0",
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_BLOG_URL": "https://blog.agou.im",
+        "EXPO_PUBLIC_BLOG_API_URL": "https://blog.agou.im/api"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "node": "20.12.0",
+      "env": {
+        "EXPO_PUBLIC_BLOG_URL": "https://blog.agou.im",
+        "EXPO_PUBLIC_BLOG_API_URL": "https://blog.agou.im/api"
+      },
+      "android": {
+        "buildType": "apk"
+      }
+    }
+  }
+}
