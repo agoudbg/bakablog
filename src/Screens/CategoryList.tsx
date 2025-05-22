@@ -9,11 +9,42 @@ import {
 } from "react-native";
 
 import { categoryList, tagCloud } from "../../src/utils/api";
+import { useTheme } from "../utils/theme";
 
 function CategoryListScreen({ navigation, route }) {
   const [refreshing, setRefreshing] = React.useState(false);
-  const [categorylist, setCategoryList] = React.useState([]);
-  const [taglist, setTagList] = React.useState([]);
+  const [categoryList2, setCategoryList] = React.useState([]);
+  const [tagList2, setTagList] = React.useState([]);
+
+  const theme = useTheme();
+
+  const styles = StyleSheet.create({
+    title: {
+      width: "100%",
+      fontSize: 20,
+      fontWeight: "bold",
+      paddingTop: 20,
+      paddingBottom: 10,
+      marginLeft: 28,
+      borderBottomWidth: 1,
+      color: theme.titleColor,
+      borderBottomColor: theme.borderColor,
+    },
+    category: {
+      width: "100%",
+      paddingVertical: 14,
+      paddingHorizontal: 17,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.borderColor,
+      justifyContent: "space-between",
+      display: "flex",
+      flexDirection: "row",
+    },
+    categoryText: {
+      fontSize: 16,
+      color: theme.secondaryColor,
+    },
+  });
 
   React.useEffect(() => {
     categoryList({}).then((data) => {
@@ -41,7 +72,7 @@ function CategoryListScreen({ navigation, route }) {
     >
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text style={styles.title}>分类</Text>
-        {categorylist.map((category) => (
+        {categoryList2.map((category) => (
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Filter", {
@@ -58,7 +89,7 @@ function CategoryListScreen({ navigation, route }) {
       </View>
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Text style={styles.title}>标签</Text>
-        {taglist.map((tag) => (
+        {tagList2.map((tag) => (
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Filter", {
@@ -75,32 +106,5 @@ function CategoryListScreen({ navigation, route }) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    width: "100%",
-    fontSize: 20,
-    fontWeight: "bold",
-    paddingTop: 20,
-    paddingBottom: 10,
-    marginLeft: 28,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
-  category: {
-    width: "100%",
-    paddingVertical: 14,
-    paddingHorizontal: 17,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    justifyContent: "space-between",
-    display: "flex",
-    flexDirection: "row",
-  },
-  categoryText: {
-    fontSize: 16,
-    color: "#333",
-  },
-});
 
 export default CategoryListScreen;

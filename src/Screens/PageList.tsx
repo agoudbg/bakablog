@@ -8,12 +8,42 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import { pageList, tagCloud } from "../../src/utils/api";
+import { pageList } from "../../src/utils/api";
+import { useTheme } from "../utils/theme";
 
 function PageListScreen({ navigation, route }) {
   const [refreshing, setRefreshing] = React.useState(false);
-  const [pagelist, setPageList] = React.useState([]);
-  const [taglist, setTagList] = React.useState([]);
+  const [pageList2, setPageList] = React.useState([]);
+
+  const theme = useTheme();
+
+  const styles = StyleSheet.create({
+    title: {
+      width: "100%",
+      fontSize: 20,
+      fontWeight: "bold",
+      paddingTop: 20,
+      paddingBottom: 10,
+      marginLeft: 28,
+      borderBottomWidth: 1,
+      color: theme.titleColor,
+      borderBottomColor: theme.borderColor,
+    },
+    page: {
+      width: "100%",
+      paddingVertical: 14,
+      paddingHorizontal: 17,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.borderColor,
+      justifyContent: "space-between",
+      display: "flex",
+      flexDirection: "row",
+    },
+    pageText: {
+      fontSize: 16,
+      color: theme.secondaryColor,
+    },
+  });
 
   React.useEffect(() => {
     pageList({}).then((data) => {
@@ -37,7 +67,7 @@ function PageListScreen({ navigation, route }) {
       }
     >
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {pagelist.map((page) => (
+        {pageList2.map((page) => (
           <TouchableOpacity
             onPress={() => {
               navigation.navigate("Article", {
@@ -53,32 +83,5 @@ function PageListScreen({ navigation, route }) {
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    width: "100%",
-    fontSize: 20,
-    fontWeight: "bold",
-    paddingTop: 20,
-    paddingBottom: 10,
-    marginLeft: 28,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
-  page: {
-    width: "100%",
-    paddingVertical: 14,
-    paddingHorizontal: 17,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    justifyContent: "space-between",
-    display: "flex",
-    flexDirection: "row",
-  },
-  pageText: {
-    fontSize: 16,
-    color: "#333",
-  },
-});
 
 export default PageListScreen;

@@ -1,5 +1,4 @@
 import {
-  FlatList,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -12,6 +11,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 import { Post } from "../types/api";
 import getPostHeadImage from "../utils/getPostHeadImage";
+import { useTheme } from "../utils/theme";
 
 // style
 
@@ -26,6 +26,76 @@ export default function ArticleList({
   isEnd: boolean;
   loading: boolean;
 }) {
+  const theme = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      width: "100%",
+      paddingHorizontal: 17,
+      paddingVertical: 12,
+    },
+    item: {
+      display: "flex",
+      backgroundColor: theme.cardBackground,
+      borderRadius: 5,
+      marginBottom: 10,
+      fontSize: 18,
+      overflow: "hidden",
+    },
+    image: {
+      width: "100%",
+      height: 200,
+      borderRadius: 5,
+    },
+    title: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: theme.titleColor,
+      maxWidth: "100%",
+      textAlign: "left",
+      marginHorizontal: 15,
+      marginTop: 15,
+      marginBottom: 10,
+      lineHeight: 26,
+    },
+    preview: {
+      fontSize: 15,
+      color: theme.secondaryColor,
+      marginTop: -4,
+      marginBottom: 10,
+      marginHorizontal: 15,
+      lineHeight: 22,
+    },
+    dateAuthorBox: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "flex-start",
+    },
+    iconInfoBox: {
+      color: theme.secondaryColor,
+      marginHorizontal: 16,
+      marginBottom: 10,
+      display: "flex",
+      flexDirection: "row",
+      alignItems: "center",
+    },
+    iconInfoBoxIcon: {
+      color: theme.secondaryColor,
+    },
+    infoBoxText: {
+      fontSize: 15,
+      color: theme.secondaryColor,
+      marginLeft: 5,
+    },
+    isEnd: {
+      width: "100%",
+      textAlign: "center",
+      color: theme.secondaryColor,
+      fontSize: 16,
+      marginVertical: 20,
+    },
+  });
+
   return (
     <ScrollView style={styles.container}>
       {posts.map((item) => (
@@ -62,7 +132,7 @@ export default function ArticleList({
                 style={styles.iconInfoBox}
                 accessibilityLabel={`发布日期：${item.date.year} 年 ${item.date.month} 月 ${item.date.day} 日`}
               >
-                <Icon name="calendar" size={16} color="#000" />
+                <Icon name="calendar" size={16} style={styles.iconInfoBoxIcon} />
                 <Text style={styles.infoBoxText}>
                   {item.date.year}-{item.date.month}-{item.date.day}
                 </Text>
@@ -77,7 +147,7 @@ export default function ArticleList({
                   });
                 }}
               >
-                <Icon name="user" size={16} color="#000" />
+                <Icon name="user" size={16} style={styles.iconInfoBoxIcon} />
                 <Text style={styles.infoBoxText}>{item.author[0].name}</Text>
               </TouchableOpacity>
             </View>
@@ -89,67 +159,3 @@ export default function ArticleList({
     </ScrollView>
   );
 }
-
-export const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    paddingHorizontal: 17,
-    paddingVertical: 12,
-  },
-  item: {
-    display: "flex",
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    marginBottom: 10,
-    fontSize: 18,
-    overflow: "hidden",
-  },
-  image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 5,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    maxWidth: "100%",
-    textAlign: "left",
-    marginHorizontal: 15,
-    marginTop: 15,
-    marginBottom: 10,
-    lineHeight: 26,
-  },
-  preview: {
-    fontSize: 15,
-    color: "#333",
-    marginTop: -4,
-    marginBottom: 10,
-    marginHorizontal: 15,
-    lineHeight: 22,
-  },
-  dateAuthorBox: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-start",
-  },
-  iconInfoBox: {
-    color: "#000",
-    marginHorizontal: 16,
-    marginBottom: 10,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  infoBoxText: {
-    fontSize: 15,
-    color: "#000",
-    marginLeft: 5,
-  },
-  isEnd: {
-    width: "100%",
-    textAlign: "center",
-    color: "#ccc",
-    fontSize: 16,
-    marginVertical: 20,
-  },
-});

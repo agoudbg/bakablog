@@ -12,6 +12,7 @@ import {
   ScrollView,
   RefreshControl,
   Platform,
+  Button,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 import IOSIcon from "react-native-vector-icons/Ionicons";
@@ -145,19 +146,14 @@ function App() {
       options={({ navigation }) => ({
         title: "bakaBlog",
         headerLargeTitle: true,
-        headerLargeTitleShadowVisible: false,
-        // headerSearchBarOptions: {
-        //   placeholder: "搜索",
-        //   onChangeText: (text) => {
-        //     navigation.navigate("HomeTab", { screen: "Home" });
-        //     console.log(text);
-        //   },
-        //   cancelButtonText: "取消",
-        // },
+        headerLargeTitleShadowVisible: true,
+        headerShadowVisible: true,
+        headerTransparent: Platform.OS === 'ios',
+        headerBlurEffect: 'systemChromeMaterial',
         headerRight: () => (
           <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}>
             <Item
-              title="search"
+              title="关于"
               IconComponent={Platform.OS === "ios" ? IOSIcon : MaterialIcon}
               iconName={
                 Platform.OS === "ios"
@@ -168,6 +164,17 @@ function App() {
             />
           </HeaderButtons>
         ),
+        // headerSearchBarOptions: {
+        //   placeholder: "搜索",
+        //   onFocus: () => {
+        //     navigation.navigate("Search");
+        //   },
+        //   onChangeText: (text) => {
+        //     navigation.navigate("HomeTab", { screen: "Home" });
+        //     console.log(text);
+        //   },
+        //   cancelButtonText: "取消",
+        // },
       })}
     />,
     <Stack.Screen
@@ -175,8 +182,12 @@ function App() {
       component={FilterScreen}
       options={() => ({
         title: "过滤",
+        headerShadowVisible: true,
         headerLargeTitle: true,
         headerLargeTitleShadowVisible: false,
+        headerBackTitle: "返回",
+        headerTransparent: Platform.OS === 'ios',
+        headerBlurEffect: 'systemChromeMaterial',
       })}
     />,
     <Stack.Screen
@@ -184,19 +195,28 @@ function App() {
       component={ArticleScreen}
       options={() => ({
         title: "",
-        headerBackTitle: "返回",
+        // headerBackTitle: "返回",
+        headerTransparent: Platform.OS === 'ios',
+        headerBlurEffect: 'systemChromeMaterial',
       })}
     />,
     <Stack.Screen
       name="About"
       component={AboutScreen}
-      options={() => ({
+      options={({ navigation }) => ({
         presentation: "modal",
         title: "关于",
         headerLargeTitle: true,
         headerLargeTitleShadowVisible: false,
-        headerBackVisible: true,
+        headerShadowVisible: true,
+        headerBackVisible: Platform.OS !== "ios",
         headerBackTitle: "返回",
+        headerTransparent: Platform.OS === 'ios',
+        headerBlurEffect: 'systemChromeMaterial',
+        headerRight:
+          Platform.OS === "ios"
+            ? () => <Button title="关闭" onPress={() => navigation.goBack()} />
+            : undefined,
       })}
     />,
   ];
