@@ -101,7 +101,7 @@ const Tab = createBottomTabNavigator();
 
 function HomeTab() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator screenOptions={{ headerShown: false }} id={undefined}>
       <Tab.Screen
         name="Home"
         component={HomeScreen}
@@ -145,11 +145,11 @@ function App() {
       component={HomeTab}
       options={({ navigation }) => ({
         title: "bakaBlog",
-        headerLargeTitle: true,
+        headerLargeTitle: !(Platform.OS === "ios" && Platform.Version > "26"),
         headerLargeTitleShadowVisible: true,
         headerShadowVisible: true,
-        headerTransparent: Platform.OS === 'ios',
-        headerBlurEffect: 'systemChromeMaterial',
+        headerTransparent: Platform.OS === "ios",
+        // headerBlurEffect: "systemChromeMaterial",
         headerRight: () => (
           <HeaderButtons HeaderButtonComponent={MaterialHeaderButton}>
             <Item
@@ -186,8 +186,8 @@ function App() {
         headerLargeTitle: true,
         headerLargeTitleShadowVisible: false,
         headerBackTitle: "返回",
-        headerTransparent: Platform.OS === 'ios',
-        headerBlurEffect: 'systemChromeMaterial',
+        headerTransparent: Platform.OS === "ios",
+        // headerBlurEffect: "systemChromeMaterial",
       })}
     />,
     <Stack.Screen
@@ -196,8 +196,8 @@ function App() {
       options={() => ({
         title: "",
         // headerBackTitle: "返回",
-        headerTransparent: Platform.OS === 'ios',
-        headerBlurEffect: 'systemChromeMaterial',
+        headerTransparent: Platform.OS === "ios",
+        // headerBlurEffect: "systemChromeMaterial",
       })}
     />,
     <Stack.Screen
@@ -211,8 +211,8 @@ function App() {
         headerShadowVisible: true,
         headerBackVisible: Platform.OS !== "ios",
         headerBackTitle: "返回",
-        headerTransparent: Platform.OS === 'ios',
-        headerBlurEffect: 'systemChromeMaterial',
+        headerTransparent: Platform.OS === "ios",
+        // headerBlurEffect: "systemChromeMaterial",
         headerRight:
           Platform.OS === "ios"
             ? () => <Button title="关闭" onPress={() => navigation.goBack()} />
@@ -230,6 +230,7 @@ function App() {
             // headerBackTitleVisible: false,
           }
         }
+        id={undefined}
       >
         {screens}
       </Stack.Navigator>

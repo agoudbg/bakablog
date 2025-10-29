@@ -1,5 +1,6 @@
 // In App.js in a new project
 
+import { useHeaderHeight } from "@react-navigation/elements";
 import * as React from "react";
 import {
   View,
@@ -18,7 +19,6 @@ import IOSIcon from "react-native-vector-icons/Ionicons";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import WebView from "react-native-webview";
 import { HeaderButtons, Item } from "react-navigation-header-buttons";
-import { useHeaderHeight } from '@react-navigation/elements';
 
 import { MaterialHeaderButton } from "../Shared/HeaderButton";
 import { Post } from "../types/api";
@@ -246,7 +246,7 @@ function ArticleScreen({ route, navigation }) {
         | React.ReactPortal,
       _parent: any,
       _myStyles: any,
-      inheritedStyles = {},
+      inheritedStyles = {}
     ) => {
       return (
         <Text
@@ -266,8 +266,8 @@ function ArticleScreen({ route, navigation }) {
   const onScroll = (event) => {
     if (
       event.nativeEvent.contentOffset.y >
-      (headImage ? 370 : 90)
-      + (Platform.OS === "ios" ? (headImage ? -(headerHeight + 110) : -70) : 0)
+      (headImage ? 370 : 90) +
+        (Platform.OS === "ios" ? (headImage ? -(headerHeight + 110) : -70) : 0)
     ) {
       navigation.setOptions({
         title: post.title,
@@ -278,7 +278,14 @@ function ArticleScreen({ route, navigation }) {
       });
     }
 
-    if (event.nativeEvent.contentOffset.y > (headImage ? (headerHeight + 78) : -70)) {
+    if (Platform.OS === "ios" && Platform.Version >= "26") {
+      navigation.setOptions({
+        headerBlurEffect: "none",
+        headerShadowVisible: false,
+      });
+    } else if (
+      event.nativeEvent.contentOffset.y > (headImage ? headerHeight + 78 : -70)
+    ) {
       navigation.setOptions({
         headerBlurEffect: "systemMaterial",
         headerShadowVisible: true,
@@ -354,7 +361,7 @@ function ArticleScreen({ route, navigation }) {
               <TouchableOpacity
                 style={styles.tag}
                 key={tag.name}
-                onPress={() => { }}
+                onPress={() => {}}
               >
                 <Text style={styles.tagText}>{tag.name}</Text>
               </TouchableOpacity>

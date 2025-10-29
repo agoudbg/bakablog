@@ -6,6 +6,7 @@ import {
   ScrollView,
   View,
   TouchableNativeFeedback,
+  Platform,
 } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -37,15 +38,15 @@ export default function ArticleList({
     item: {
       display: "flex",
       backgroundColor: theme.cardBackground,
-      borderRadius: 5,
-      marginBottom: 10,
+      borderRadius: Platform.OS === "ios" && Platform.Version > "26" ? 24 : 5,
+      marginBottom: Platform.OS === "ios" && Platform.Version > "26" ? 18 : 10,
       fontSize: 18,
       overflow: "hidden",
     },
     image: {
       width: "100%",
       height: 200,
-      borderRadius: 5,
+      borderRadius: Platform.OS === "ios" && Platform.Version > "26" ? 10 : 5,
     },
     title: {
       fontSize: 18,
@@ -118,10 +119,10 @@ export default function ArticleList({
               <Text style={styles.preview}>
                 {item.text.split("<!--more-->").length > 1
                   ? item.text
-                    .split("<!--more-->")[0]
-                    .split("\n")
-                    .filter((i) => i !== "")
-                    .join("\n")
+                      .split("<!--more-->")[0]
+                      .split("\n")
+                      .filter((i) => i !== "")
+                      .join("\n")
                   : item.text.length > 100
                     ? item.text.slice(0, 100) + "..."
                     : item.text}
@@ -132,7 +133,11 @@ export default function ArticleList({
                 style={styles.iconInfoBox}
                 accessibilityLabel={`发布日期：${item.date.year} 年 ${item.date.month} 月 ${item.date.day} 日`}
               >
-                <Icon name="calendar" size={16} style={styles.iconInfoBoxIcon} />
+                <Icon
+                  name="calendar"
+                  size={16}
+                  style={styles.iconInfoBoxIcon}
+                />
                 <Text style={styles.infoBoxText}>
                   {item.date.year}-{item.date.month}-{item.date.day}
                 </Text>
