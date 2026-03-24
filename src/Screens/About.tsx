@@ -15,7 +15,13 @@ function AboutScreen({ navigation }) {
       <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
         <Image
           source={require("../../assets/icon.png")}
-          style={{ width: 100, height: 100, marginTop: 20, marginBottom: 20, borderRadius: 15, }}
+          style={{
+            width: 100,
+            height: 100,
+            marginTop: 20,
+            marginBottom: 20,
+            borderRadius: 15,
+          }}
         />
         <Text
           style={{

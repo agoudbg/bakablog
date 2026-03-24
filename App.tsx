@@ -107,9 +107,16 @@ function HomeTab() {
         component={HomeScreen}
         options={() => ({
           title: "主页",
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="home" color={color} size={size} />
-          ),
+          tabBarIcon: Platform.select({
+            ios: {
+              type: "sfSymbol",
+              name: "house",
+            },
+            android: {
+              type: "materialSymbol",
+              name: "home",
+            },
+          }),
         })}
       />
       <Tab.Screen
@@ -117,9 +124,16 @@ function HomeTab() {
         component={CategoryListScreen}
         options={() => ({
           title: "分类",
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="list" color={color} size={size} />
-          ),
+          tabBarIcon: Platform.select({
+            ios: {
+              type: "sfSymbol",
+              name: "square.grid.2x2",
+            },
+            android: {
+              type: "materialSymbol",
+              name: "grid_view",
+            },
+          }),
         })}
       />
       <Tab.Screen
@@ -127,9 +141,16 @@ function HomeTab() {
         component={PageListScreen}
         options={() => ({
           title: "页面",
-          tabBarIcon: ({ color, size }) => (
-            <Icon name="paperclip" color={color} size={size} />
-          ),
+          tabBarIcon: Platform.select({
+            ios: {
+              type: "sfSymbol",
+              name: "doc.text",
+            },
+            android: {
+              type: "materialSymbol",
+              name: "description",
+            },
+          }),
         })}
       />
     </Tab.Navigator>

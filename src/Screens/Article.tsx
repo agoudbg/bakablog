@@ -246,7 +246,7 @@ function ArticleScreen({ route, navigation }) {
         | React.ReactPortal,
       _parent: any,
       _myStyles: any,
-      inheritedStyles = {}
+      inheritedStyles = {},
     ) => {
       return (
         <Text

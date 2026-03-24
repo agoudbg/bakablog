@@ -1,4 +1,4 @@
-export interface CountProps { }
+export interface CountProps {}
 
 export interface CountState {
   count: number;
